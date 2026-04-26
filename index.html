@@ -34,7 +34,6 @@
       </a>
       <a href="shop.html?cat=promos" class="cat-item">
         <span>🔥</span> Promos & Bundles
-        <span class="count" id="cnt-promos"></span>
       </a>
     </div>
 
@@ -42,47 +41,36 @@
       <div class="sidebar-label">Categories</div>
       <a href="shop.html?cat=whisky" class="cat-item">
         <span>🥃</span> Whisky
-        <span class="count" id="cnt-whisky"></span>
       </a>
       <a href="shop.html?cat=gin" class="cat-item">
         <span>🌿</span> Gin
-        <span class="count" id="cnt-gin"></span>
       </a>
       <a href="shop.html?cat=vodka" class="cat-item">
         <span>🫧</span> Vodka
-        <span class="count" id="cnt-vodka"></span>
       </a>
       <a href="shop.html?cat=brandy" class="cat-item">
         <span>🍂</span> Brandy
-        <span class="count" id="cnt-brandy"></span>
       </a>
       <a href="shop.html?cat=wine" class="cat-item">
         <span>🍷</span> Wine
-        <span class="count" id="cnt-wine"></span>
       </a>
       <a href="shop.html?cat=tequila" class="cat-item">
         <span>🌵</span> Tequila
-        <span class="count" id="cnt-tequila"></span>
       </a>
       <a href="shop.html?cat=cognac" class="cat-item">
         <span>✨</span> Cognac
-        <span class="count" id="cnt-cognac"></span>
       </a>
       <a href="shop.html?cat=rum" class="cat-item">
         <span>🏝️</span> Rum
-        <span class="count" id="cnt-rum"></span>
       </a>
       <a href="shop.html?cat=liqueur" class="cat-item">
         <span>🍬</span> Liqueur
-        <span class="count" id="cnt-liqueur"></span>
       </a>
       <a href="shop.html?cat=soju" class="cat-item">
         <span>🇰🇷</span> Soju
-        <span class="count" id="cnt-soju"></span>
       </a>
       <a href="shop.html?cat=beer" class="cat-item">
         <span>🍺</span> Beer
-        <span class="count" id="cnt-beer"></span>
       </a>
     </div>
 
@@ -228,12 +216,6 @@
 <script src="js/products.js"></script>
 <script src="js/app.js"></script>
 <script>
-  // Fill sidebar counts
-  Object.keys(PRODUCTS).forEach(cat => {
-    const el = document.getElementById(`cnt-${cat}`);
-    if (el) el.textContent = PRODUCTS[cat].length;
-  });
-
   // Render featured promos (first 6)
   const promoGrid = document.getElementById('home-promos');
   PRODUCTS.promos.slice(0,6).forEach(p => {

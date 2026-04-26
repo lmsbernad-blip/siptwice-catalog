@@ -1,5 +1,6 @@
-/* ── INQUIRY CART ─────────────────────────────── */
+/* ── ORDER CART ────────────────────────────────── */
 let inquiry = JSON.parse(localStorage.getItem('siptwice_order') || '[]');
+// Each item: { name, price, qty }
 
 function saveInquiry() {
   localStorage.setItem('siptwice_order', JSON.stringify(inquiry));
@@ -7,12 +8,13 @@ function saveInquiry() {
 }
 
 function updateInquiryCount() {
+  const total = inquiry.reduce((sum, i) => sum + (i.qty || 1), 0);
   document.querySelectorAll('.inquiry-count').forEach(el => {
-    el.textContent = inquiry.length;
-    el.style.display = inquiry.length ? 'inline-block' : 'none';
+    el.textContent = total;
+    el.style.display = total ? 'inline-block' : 'none';
   });
   document.querySelectorAll('[data-inquiry-count]').forEach(el => {
-    el.textContent = `${inquiry.length} item${inquiry.length !== 1 ? 's' : ''}`;
+    el.textContent = `${total} item${total !== 1 ? 's' : ''}`;
   });
 }
 
@@ -23,7 +25,7 @@ function addToInquiry(name, price, btn) {
     if (btn) { btn.textContent = '+ Add to Order'; btn.classList.remove('added'); }
     return;
   }
-  inquiry.push({ name, price });
+  inquiry.push({ name, price, qty: 1 });
   saveInquiry();
   if (btn) { btn.textContent = '✓ Added'; btn.classList.add('added'); }
 }
@@ -31,7 +33,6 @@ function addToInquiry(name, price, btn) {
 function removeFromInquiry(name) {
   inquiry = inquiry.filter(i => i.name !== name);
   saveInquiry();
-  // Update button state if visible
   document.querySelectorAll(`.card-add[data-name="${CSS.escape(name)}"]`).forEach(btn => {
     btn.textContent = '+ Add to Order';
     btn.classList.remove('added');
@@ -39,9 +40,26 @@ function removeFromInquiry(name) {
   renderInquiryList();
 }
 
+function changeQty(name, delta) {
+  const item = inquiry.find(i => i.name === name);
+  if (!item) return;
+  item.qty = (item.qty || 1) + delta;
+  if (item.qty <= 0) {
+    removeFromInquiry(name);
+    return;
+  }
+  saveInquiry();
+  renderInquiryList();
+}
+
 function buildInquiryMessage() {
   if (!inquiry.length) return '';
-  const lines = inquiry.map(i => `• ${i.name} — ${i.price}`).join('\n');
+  const lines = inquiry.map(i => {
+    const qty = i.qty || 1;
+    return qty > 1
+      ? `• ${qty}x ${i.name} — ${i.price} each`
+      : `• ${i.name} — ${i.price}`;
+  }).join('\n');
   return `Hi Sip Twice! I'd like to order the following:\n\n${lines}\n\nPlease confirm availability and arrange delivery. Thank you!`;
 }
 
@@ -49,18 +67,26 @@ function renderInquiryList() {
   const body = document.getElementById('inquiry-body');
   if (!body) return;
   if (!inquiry.length) {
-    body.innerHTML = '<div class="inquiry-empty">Your order list is empty.<br/>Browse and add products you like.</div>';
+    body.innerHTML = '<div class="inquiry-empty">Your order is empty.<br/>Browse and add products you like.</div>';
     return;
   }
-  body.innerHTML = inquiry.map(item => `
+  body.innerHTML = inquiry.map(item => {
+    const qty = item.qty || 1;
+    const safeName = item.name.replace(/'/g, "\\'");
+    return `
     <div class="inquiry-item">
-      <div>
+      <div class="inquiry-item-info">
         <div class="inquiry-item-name">${item.name}</div>
         <div class="inquiry-item-price">${item.price}</div>
       </div>
-      <button class="inquiry-item-remove" onclick="removeFromInquiry('${item.name.replace(/'/g,"\\'")}')">×</button>
-    </div>
-  `).join('');
+      <div class="inquiry-item-controls">
+        <button class="qty-btn" onclick="changeQty('${safeName}', -1)">−</button>
+        <span class="qty-val">${qty}</span>
+        <button class="qty-btn" onclick="changeQty('${safeName}', 1)">+</button>
+        <button class="inquiry-item-remove" onclick="removeFromInquiry('${safeName}')">×</button>
+      </div>
+    </div>`;
+  }).join('');
 }
 
 function openInquiry() {
@@ -75,7 +101,7 @@ function closeInquiry() {
 }
 
 function sendInquiry(channel) {
-  if (!inquiry.length) { alert('Please add at least one product to your inquiry list.'); return; }
+  if (!inquiry.length) { alert('Please add at least one product to your order.'); return; }
   const msg = buildInquiryMessage();
   const encoded = encodeURIComponent(msg);
   if (channel === 'fb') {
@@ -151,11 +177,9 @@ function handleAdd(btn, name, price) {
 document.addEventListener('DOMContentLoaded', () => {
   updateInquiryCount();
 
-  // Sidebar overlay click
   const overlay = document.getElementById('sidebar-overlay');
   if (overlay) overlay.onclick = toggleSidebar;
 
-  // Modal overlay click
   const modalOverlay = document.getElementById('order-modal');
   if (modalOverlay) {
     modalOverlay.addEventListener('click', e => {
@@ -163,7 +187,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Keyboard ESC
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeInquiry();
   });

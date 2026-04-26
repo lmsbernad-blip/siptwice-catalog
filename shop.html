@@ -34,7 +34,6 @@
       </a>
       <button class="cat-item" id="btn-promos" onclick="selectCat('promos')">
         <span>🔥</span> Promos & Bundles
-        <span class="count" id="cnt-promos"></span>
       </button>
     </div>
 
@@ -42,48 +41,37 @@
       <div class="sidebar-label">Categories</div>
       <button class="cat-item" id="btn-whisky" onclick="selectCat('whisky')">
         <span>🥃</span> Whisky
-        <span class="count" id="cnt-whisky"></span>
       </button>
       <div class="sub-items" id="whisky-subs" style="display:none"></div>
       <button class="cat-item" id="btn-gin" onclick="selectCat('gin')">
         <span>🌿</span> Gin
-        <span class="count" id="cnt-gin"></span>
       </button>
       <button class="cat-item" id="btn-vodka" onclick="selectCat('vodka')">
         <span>🫧</span> Vodka
-        <span class="count" id="cnt-vodka"></span>
       </button>
       <button class="cat-item" id="btn-brandy" onclick="selectCat('brandy')">
         <span>🍂</span> Brandy
-        <span class="count" id="cnt-brandy"></span>
       </button>
       <button class="cat-item" id="btn-wine" onclick="selectCat('wine')">
         <span>🍷</span> Wine
-        <span class="count" id="cnt-wine"></span>
       </button>
       <button class="cat-item" id="btn-tequila" onclick="selectCat('tequila')">
         <span>🌵</span> Tequila
-        <span class="count" id="cnt-tequila"></span>
       </button>
       <button class="cat-item" id="btn-cognac" onclick="selectCat('cognac')">
         <span>✨</span> Cognac
-        <span class="count" id="cnt-cognac"></span>
       </button>
       <button class="cat-item" id="btn-rum" onclick="selectCat('rum')">
         <span>🏝️</span> Rum
-        <span class="count" id="cnt-rum"></span>
       </button>
       <button class="cat-item" id="btn-liqueur" onclick="selectCat('liqueur')">
         <span>🍬</span> Liqueur
-        <span class="count" id="cnt-liqueur"></span>
       </button>
       <button class="cat-item" id="btn-soju" onclick="selectCat('soju')">
         <span>🇰🇷</span> Soju
-        <span class="count" id="cnt-soju"></span>
       </button>
       <button class="cat-item" id="btn-beer" onclick="selectCat('beer')">
         <span>🍺</span> Beer
-        <span class="count" id="cnt-beer"></span>
       </button>
     </div>
 
@@ -217,12 +205,6 @@
     soju:'Chingu, Vino Soju and Korean-style spirits',
     beer:'Budweiser and party packs',
   };
-
-  // Fill sidebar counts
-  Object.keys(PRODUCTS).forEach(cat => {
-    const el = document.getElementById(`cnt-${cat}`);
-    if (el) el.textContent = PRODUCTS[cat].length;
-  });
 
   // Build whisky sub-items
   const whiskySubs = document.getElementById('whisky-subs');
