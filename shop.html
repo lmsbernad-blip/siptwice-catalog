@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shop — Sip Twice Premium Liquor</title>
+  <meta name="description" content="Browse 200+ premium spirits. Whisky, gin, brandy, wine, tequila and more. Metro Manila delivery."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo"><a href="index.html">SIP<span>TWICE</span></a></div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="shop.html" class="active">Shop</a>
+    <a href="shop.html?cat=promos">Promos</a>
+  </div>
+  <div class="nav-contact">
+    <span>📍 Mandaluyong</span>
+    <a href="viber://chat?number=%2B639560847104">Order via Viber</a>
+  </div>
+</nav>
+
+<!-- PROMO STRIP -->
+<div class="promo-strip">
+  🚚 FREE delivery Metro Manila on orders ₱3,000+ &nbsp;|&nbsp; ₱150 min delivery fee below ₱3,000
+</div>
+
+<!-- SHOP LAYOUT -->
+<div class="shop-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-title">Categories</div>
+    <div id="cat-buttons"></div>
+    <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border)">
+      <div class="sidebar-title">Order Now</div>
+      <a href="https://m.me/461074500421635" target="_blank"
+         style="display:block;background:var(--fb);color:#fff;text-align:center;padding:10px;border-radius:4px;font-weight:700;font-size:13px;margin-bottom:8px">
+        📘 Facebook
+      </a>
+      <a href="viber://chat?number=%2B639560847104"
+         style="display:block;background:var(--viber);color:#fff;text-align:center;padding:10px;border-radius:4px;font-weight:700;font-size:13px">
+        💬 Viber
+      </a>
+      <div style="margin-top:12px;font-size:12px;color:var(--muted);line-height:1.5">
+        📞 09560847104<br/>
+        📍 Mandaluyong City<br/>
+        🚚 FREE delivery ₱3,000+
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="shop-main">
+    <div class="search-bar">
+      <input type="text" class="search-input" id="search" placeholder="Search products... (e.g. Glenfiddich, Brandy, Gin)"/>
+    </div>
+
+    <div id="sub-tabs" class="sub-tabs" style="display:none"></div>
+
+    <div class="results-count" id="results-count"></div>
+
+    <div class="product-grid" id="product-grid"></div>
+
+    <div class="empty" id="empty-state" style="display:none">
+      <div class="empty-icon">🔍</div>
+      <div>No products found</div>
+      <div style="font-size:13px;margin-top:8px">Try a different search or category</div>
+    </div>
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-logo">SIP TWICE</div>
+  <div class="footer-tagline">Premium Liquor Shop · Mandaluyong City, Metro Manila</div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="shop.html?cat=promos">Promos</a>
+    <a href="https://www.facebook.com/profile.php?id=461074500421635" target="_blank">Facebook</a>
+    <a href="https://invite.viber.com/?g2=AQBDzlc3gQVeW1OmRwA6sR3mK1F%2FHCGGMUUf%2B86vvUArJSRankadAEcp07j%2BQKpZ" target="_blank">Viber Community</a>
+  </div>
+  <div class="footer-copy">© 2026 Sip Twice. 18+ only. Drink responsibly.</div>
+</footer>
+
+<script src="js/products.js"></script>
+<script>
+  let currentCat = 'whisky';
+  let currentSub = 'all';
+  let searchQuery = '';
+
+  const EMOJI = {promos:'🔥',whisky:'🥃',gin:'🌿',vodka:'🫧',brandy:'🍂',wine:'🍷',tequila:'🌵',cognac:'✨',rum:'🏝️',liqueur:'🍬',soju:'🇰🇷',beer:'🍺'};
+
+  function pctOff(srp, price) {
+    const s = parseFloat((srp||'').replace(/[₱,]/g,''));
+    const p = parseFloat((price||'').replace(/[₱,]/g,''));
+    if (!s||!p||s<=p) return 0;
+    return Math.round((s-p)/s*100);
+  }
+
+  function orderMsg(name) {
+    return encodeURIComponent(`Hi! I want to order: ${name}`);
+  }
+
+  function renderCard(p, cat) {
+    const pct = pctOff(p.srp, p.price);
+    return `
+    <div class="product-card">
+      <div class="card-img">${EMOJI[cat]||'🥃'}</div>
+      <div class="card-body">
+        <div class="card-name">${p.name}</div>
+        <div class="card-desc">${p.details||p.promo||''}</div>
+        ${pct ? `<div class="card-save">SAVE ${pct}%</div>` : ''}
+        ${p.srp ? `<div class="card-srp">SRP ${p.srp}</div>` : ''}
+        <div class="card-price">${p.price}</div>
+        ${p.promo ? `<div class="card-promo">🎉 ${p.promo}</div>` : ''}
+        <div class="card-btns">
+          <a class="btn-fb" href="https://m.me/461074500421635?ref=${orderMsg(p.name)}" target="_blank">📘 Facebook</a>
+          <a class="btn-viber" href="viber://chat?number=%2B639560847104&text=${orderMsg(p.name)}">💬 Viber</a>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  function buildCatButtons() {
+    const el = document.getElementById('cat-buttons');
+    el.innerHTML = '';
+    Object.entries(CATEGORY_LABELS).forEach(([key, label]) => {
+      const btn = document.createElement('button');
+      btn.className = 'cat-btn' + (key === currentCat ? ' active' : '');
+      btn.textContent = label;
+      btn.onclick = () => selectCat(key);
+      el.appendChild(btn);
+    });
+  }
+
+  function buildSubTabs() {
+    const el = document.getElementById('sub-tabs');
+    if (currentCat !== 'whisky') { el.style.display = 'none'; return; }
+    el.style.display = 'flex';
+    el.innerHTML = '';
+    const subs = ['all', ...WHISKY_SUBCATEGORIES];
+    subs.forEach(s => {
+      const btn = document.createElement('button');
+      btn.className = 'sub-tab' + (s === currentSub ? ' active' : '');
+      btn.textContent = s === 'all' ? 'All Whisky' : s;
+      btn.onclick = () => { currentSub = s; buildSubTabs(); renderProducts(); };
+      el.appendChild(btn);
+    });
+  }
+
+  function renderProducts() {
+    const grid = document.getElementById('product-grid');
+    const empty = document.getElementById('empty-state');
+    const count = document.getElementById('results-count');
+    grid.innerHTML = '';
+
+    let items = (PRODUCTS[currentCat]||[]).map(p => ({...p, _cat: currentCat}));
+
+    if (currentCat === 'whisky' && currentSub !== 'all') {
+      items = items.filter(p => p.subcategory === currentSub);
+    }
+
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      items = items.filter(p =>
+        p.name.toLowerCase().includes(q) ||
+        (p.details||'').toLowerCase().includes(q) ||
+        (p.subcategory||'').toLowerCase().includes(q)
+      );
+    }
+
+    if (items.length === 0) {
+      empty.style.display = 'block';
+      count.textContent = '';
+    } else {
+      empty.style.display = 'none';
+      count.textContent = `${items.length} product${items.length!==1?'s':''}`;
+      items.forEach(p => { grid.innerHTML += renderCard(p, currentCat); });
+    }
+  }
+
+  function selectCat(cat) {
+    currentCat = cat;
+    currentSub = 'all';
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.cat-btn').forEach(b => {
+      if (b.textContent === CATEGORY_LABELS[cat]) b.classList.add('active');
+    });
+    buildSubTabs();
+    renderProducts();
+    window.history.replaceState(null, '', `?cat=${cat}`);
+  }
+
+  // Read URL param
+  const urlCat = new URLSearchParams(window.location.search).get('cat');
+  if (urlCat && PRODUCTS[urlCat]) currentCat = urlCat;
+
+  buildCatButtons();
+  buildSubTabs();
+  renderProducts();
+
+  // Search
+  document.getElementById('search').addEventListener('input', e => {
+    searchQuery = e.target.value.trim();
+    // If searching, show all categories flat
+    if (searchQuery) {
+      const grid = document.getElementById('product-grid');
+      const empty = document.getElementById('empty-state');
+      const count = document.getElementById('results-count');
+      const q = searchQuery.toLowerCase();
+      grid.innerHTML = '';
+      let total = 0;
+      Object.entries(PRODUCTS).forEach(([cat, items]) => {
+        items.forEach(p => {
+          if (p.name.toLowerCase().includes(q) || (p.details||'').toLowerCase().includes(q)) {
+            grid.innerHTML += renderCard(p, cat);
+            total++;
+          }
+        });
+      });
+      count.textContent = total ? `${total} result${total!==1?'s':''} for "${searchQuery}"` : '';
+      empty.style.display = total === 0 ? 'block' : 'none';
+    } else {
+      renderProducts();
+    }
+  });
+</script>
+</body>
+</html>
