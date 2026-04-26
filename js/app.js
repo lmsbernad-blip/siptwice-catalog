@@ -1,8 +1,8 @@
 /* ── INQUIRY CART ─────────────────────────────── */
-let inquiry = JSON.parse(localStorage.getItem('siptwice_inquiry') || '[]');
+let inquiry = JSON.parse(localStorage.getItem('siptwice_order') || '[]');
 
 function saveInquiry() {
-  localStorage.setItem('siptwice_inquiry', JSON.stringify(inquiry));
+  localStorage.setItem('siptwice_order', JSON.stringify(inquiry));
   updateInquiryCount();
 }
 
@@ -20,7 +20,7 @@ function addToInquiry(name, price, btn) {
   const exists = inquiry.find(i => i.name === name);
   if (exists) {
     removeFromInquiry(name);
-    if (btn) { btn.textContent = '+ Add to Inquiry'; btn.classList.remove('added'); }
+    if (btn) { btn.textContent = '+ Add to Order'; btn.classList.remove('added'); }
     return;
   }
   inquiry.push({ name, price });
@@ -33,7 +33,7 @@ function removeFromInquiry(name) {
   saveInquiry();
   // Update button state if visible
   document.querySelectorAll(`.card-add[data-name="${CSS.escape(name)}"]`).forEach(btn => {
-    btn.textContent = '+ Add to Inquiry';
+    btn.textContent = '+ Add to Order';
     btn.classList.remove('added');
   });
   renderInquiryList();
@@ -42,14 +42,14 @@ function removeFromInquiry(name) {
 function buildInquiryMessage() {
   if (!inquiry.length) return '';
   const lines = inquiry.map(i => `• ${i.name} — ${i.price}`).join('\n');
-  return `Hi Sip Twice! I'd like to inquire about the following:\n\n${lines}\n\nPlease confirm availability and delivery details. Thank you!`;
+  return `Hi Sip Twice! I'd like to order the following:\n\n${lines}\n\nPlease confirm availability and arrange delivery. Thank you!`;
 }
 
 function renderInquiryList() {
   const body = document.getElementById('inquiry-body');
   if (!body) return;
   if (!inquiry.length) {
-    body.innerHTML = '<div class="inquiry-empty">Your inquiry list is empty.<br/>Browse and add products you like.</div>';
+    body.innerHTML = '<div class="inquiry-empty">Your order list is empty.<br/>Browse and add products you like.</div>';
     return;
   }
   body.innerHTML = inquiry.map(item => `
@@ -65,12 +65,12 @@ function renderInquiryList() {
 
 function openInquiry() {
   renderInquiryList();
-  document.getElementById('inquiry-modal').classList.add('open');
+  document.getElementById('order-modal').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 
 function closeInquiry() {
-  document.getElementById('inquiry-modal').classList.remove('open');
+  document.getElementById('order-modal').classList.remove('open');
   document.body.style.overflow = '';
 }
 
@@ -79,7 +79,8 @@ function sendInquiry(channel) {
   const msg = buildInquiryMessage();
   const encoded = encodeURIComponent(msg);
   if (channel === 'fb') {
-    window.open(`https://m.me/461074500421635?ref=${encoded}`, '_blank');
+    window.open(`https://www.facebook.com/messages/t/461074500421635`, '_blank');
+    navigator.clipboard && navigator.clipboard.writeText(msg);
   } else {
     window.open(`viber://chat?number=%2B639560847104&text=${encoded}`, '_blank');
   }
@@ -136,7 +137,7 @@ function renderCard(p, cat) {
     <button class="card-add ${isAdded ? 'added' : ''}"
       data-name="${p.name.replace(/"/g,'&quot;')}"
       onclick="handleAdd(this, '${p.name.replace(/'/g,"\\'")}', '${p.price}')">
-      ${isAdded ? '✓ Added' : '+ Add to Inquiry'}
+      ${isAdded ? '✓ Added' : '+ Add to Order'}
     </button>
   </div>
 </div>`;
@@ -155,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (overlay) overlay.onclick = toggleSidebar;
 
   // Modal overlay click
-  const modalOverlay = document.getElementById('inquiry-modal');
+  const modalOverlay = document.getElementById('order-modal');
   if (modalOverlay) {
     modalOverlay.addEventListener('click', e => {
       if (e.target === modalOverlay) closeInquiry();

@@ -106,10 +106,10 @@
 
     <div class="sidebar-inquiry">
       <div style="font-size:11px;color:var(--muted);margin-bottom:10px">
-        <span data-inquiry-count>0 items</span> in your inquiry
+        <span data-inquiry-count>0 items</span> in your order
       </div>
       <button class="inquiry-btn" onclick="openInquiry()">
-        Send Inquiry
+        Send Order
         <span class="inquiry-count" style="display:none">0</span>
       </button>
     </div>
@@ -172,21 +172,21 @@
 </div>
 
 <!-- INQUIRY MODAL -->
-<div class="modal-overlay" id="inquiry-modal">
+<div class="modal-overlay" id="order-modal">
   <div class="modal">
     <div class="modal-header">
-      <div class="modal-title">Your Inquiry</div>
+      <div class="modal-title">Your Order</div>
       <button class="modal-close" onclick="closeInquiry()">×</button>
     </div>
     <div class="modal-body" id="inquiry-body"></div>
     <div class="modal-footer">
       <div class="modal-footer-note">
-        We'll confirm availability, compute your total, and arrange delivery.
-        Free delivery on orders ₱3,000+. Delivery starts at ₱150 below that.
+        Send your order via Facebook or Viber. We'll confirm availability, compute your total, and arrange delivery.
+        <br/>FREE delivery on orders ₱3,000+. Below ₱3,000: delivery fee starts at ₱150.
       </div>
       <div class="order-btns">
-        <a class="btn-fb" href="#" onclick="sendInquiry('fb');return false;">📘 Send via Facebook</a>
-        <a class="btn-viber" href="#" onclick="sendInquiry('viber');return false;">💬 Send via Viber</a>
+        <a class="btn-fb" href="#" onclick="sendInquiry('fb');return false;">📘 Order via Facebook</a>
+        <a class="btn-viber" href="#" onclick="sendInquiry('viber');return false;">💬 Order via Viber</a>
       </div>
     </div>
   </div>
