@@ -4,204 +4,254 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sip Twice — Premium Liquor Shop, Mandaluyong</title>
-  <meta name="description" content="Premium spirits, whisky, gin, wine and more. Delivered anywhere in Metro Manila. Order via Facebook or Viber."/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <meta name="description" content="Premium spirits delivered across Metro Manila. Whisky, gin, brandy, wine and more."/>
   <link rel="stylesheet" href="css/style.css"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥃</text></svg>"/>
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="nav">
-  <div class="nav-logo">SIP<span>TWICE</span></div>
-  <div class="nav-links">
-    <a href="index.html" class="active">Home</a>
-    <a href="shop.html">Shop</a>
-    <a href="shop.html?cat=promos">Promos</a>
-  </div>
-  <div class="nav-contact">
-    <span>📍 Mandaluyong</span>
-    <a href="viber://chat?number=%2B639560847104">Order via Viber</a>
-  </div>
-</nav>
+<div class="layout">
 
-<!-- PROMO STRIP -->
-<div class="promo-strip">
-  🚚 FREE delivery Metro Manila on orders ₱3,000+ &nbsp;|&nbsp; ₱150 min delivery fee below ₱3,000 &nbsp;|&nbsp; Same-day delivery available
-</div>
+  <!-- SIDEBAR -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  <aside class="sidebar" id="sidebar">
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-badge">Mandaluyong's Premium Liquor Shop</div>
-  <h1>Premium Spirits,<br/><span>Delivered to You.</span></h1>
-  <p>Over 200 bottles in stock — whisky, gin, brandy, wine and more. Order via Facebook or Viber.</p>
-  <div class="hero-btns">
-    <a href="shop.html" class="btn-primary">Browse All Products</a>
-    <a href="shop.html?cat=promos" class="btn-outline">View Promos</a>
-  </div>
-</section>
+    <div class="sidebar-logo">
+      <a href="index.html">
+        <div class="logo-wordmark">Sip Twice</div>
+        <div class="logo-sub">Premium Liquor · Mandaluyong</div>
+      </a>
+    </div>
 
-<!-- FEATURED PROMOS -->
-<div class="section">
-  <div class="section-title">🔥 Current <span>Promos & Bundles</span></div>
-  <div class="section-sub">Limited stocks — order now before they run out</div>
-  <div class="product-grid" id="promos-grid"></div>
-  <div style="text-align:center;margin-top:24px">
-    <a href="shop.html?cat=promos" class="btn-outline">See All Promos →</a>
-  </div>
-</div>
+    <div class="sidebar-search">
+      <input type="text" placeholder="Search products..." id="global-search" autocomplete="off"/>
+    </div>
 
-<!-- FEATURED CATEGORIES -->
-<div style="background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
-  <div class="section">
-    <div class="section-title">Shop by <span>Category</span></div>
-    <div class="section-sub">Tap a category to browse</div>
-    <div style="display:flex;flex-wrap:wrap;gap:12px" id="cat-grid"></div>
-  </div>
-</div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Browse</div>
+      <a href="index.html" class="cat-item active">
+        <span>🏠</span> Home
+      </a>
+      <a href="shop.html?cat=promos" class="cat-item">
+        <span>🔥</span> Promos & Bundles
+        <span class="count" id="cnt-promos"></span>
+      </a>
+    </div>
 
-<!-- POPULAR WHISKY -->
-<div class="section">
-  <div class="section-title">🥃 Popular <span>Whiskies</span></div>
-  <div class="section-sub">Our bestselling single malts and blends</div>
-  <div class="product-grid" id="whisky-grid"></div>
-  <div style="text-align:center;margin-top:24px">
-    <a href="shop.html?cat=whisky" class="btn-outline">View All Whiskies →</a>
-  </div>
-</div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Categories</div>
+      <a href="shop.html?cat=whisky" class="cat-item">
+        <span>🥃</span> Whisky
+        <span class="count" id="cnt-whisky"></span>
+      </a>
+      <a href="shop.html?cat=gin" class="cat-item">
+        <span>🌿</span> Gin
+        <span class="count" id="cnt-gin"></span>
+      </a>
+      <a href="shop.html?cat=vodka" class="cat-item">
+        <span>🫧</span> Vodka
+        <span class="count" id="cnt-vodka"></span>
+      </a>
+      <a href="shop.html?cat=brandy" class="cat-item">
+        <span>🍂</span> Brandy
+        <span class="count" id="cnt-brandy"></span>
+      </a>
+      <a href="shop.html?cat=wine" class="cat-item">
+        <span>🍷</span> Wine
+        <span class="count" id="cnt-wine"></span>
+      </a>
+      <a href="shop.html?cat=tequila" class="cat-item">
+        <span>🌵</span> Tequila
+        <span class="count" id="cnt-tequila"></span>
+      </a>
+      <a href="shop.html?cat=cognac" class="cat-item">
+        <span>✨</span> Cognac
+        <span class="count" id="cnt-cognac"></span>
+      </a>
+      <a href="shop.html?cat=rum" class="cat-item">
+        <span>🏝️</span> Rum
+        <span class="count" id="cnt-rum"></span>
+      </a>
+      <a href="shop.html?cat=liqueur" class="cat-item">
+        <span>🍬</span> Liqueur
+        <span class="count" id="cnt-liqueur"></span>
+      </a>
+      <a href="shop.html?cat=soju" class="cat-item">
+        <span>🇰🇷</span> Soju
+        <span class="count" id="cnt-soju"></span>
+      </a>
+      <a href="shop.html?cat=beer" class="cat-item">
+        <span>🍺</span> Beer
+        <span class="count" id="cnt-beer"></span>
+      </a>
+    </div>
 
-<!-- WHY SIP TWICE -->
-<div style="background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
-  <div class="section" style="text-align:center">
-    <div class="section-title">Why <span>Sip Twice?</span></div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;margin-top:32px">
-      <div>
-        <div style="font-size:36px;margin-bottom:12px">🥃</div>
-        <div style="font-weight:700;margin-bottom:6px">200+ Products</div>
-        <div style="color:var(--muted);font-size:14px">Whisky, gin, brandy, wine, tequila, cognac and more</div>
+    <div class="sidebar-inquiry">
+      <div style="font-size:11px;color:var(--muted);margin-bottom:10px">
+        <span data-inquiry-count>0 items</span> in your inquiry
       </div>
-      <div>
-        <div style="font-size:36px;margin-bottom:12px">🚚</div>
-        <div style="font-weight:700;margin-bottom:6px">Metro Manila Delivery</div>
-        <div style="color:var(--muted);font-size:14px">FREE delivery on orders ₱3,000+. Same-day available.</div>
+      <button class="inquiry-btn" onclick="openInquiry()">
+        Send Inquiry
+        <span class="inquiry-count" style="display:none">0</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+      <div class="topbar-title">Sip Twice</div>
+      <div class="topbar-right">
+        <span>📍 Mandaluyong</span>
+        <span>09560847104</span>
       </div>
-      <div>
-        <div style="font-size:36px;margin-bottom:12px">✅</div>
-        <div style="font-weight:700;margin-bottom:6px">Trusted Shop</div>
-        <div style="color:var(--muted);font-size:14px">Hundreds of happy customers across Metro Manila</div>
+    </div>
+
+    <!-- PROMO STRIP -->
+    <div class="promo-strip">
+      FREE delivery on orders ₱3,000+ &nbsp;·&nbsp; Delivery starts at ₱150 below that &nbsp;·&nbsp; Same-day Metro Manila
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-eyebrow">Mandaluyong City · Metro Manila</div>
+      <h1>Premium Spirits,<br/><em>Delivered.</em></h1>
+      <p class="hero-sub">Browse our full selection of whisky, gin, brandy, wine and more. Add what you like, then send us one message to order.</p>
+      <div class="hero-actions">
+        <a href="shop.html" class="btn-gold">Browse All Products</a>
+        <a href="shop.html?cat=promos" class="btn-ghost">View Promos</a>
       </div>
-      <div>
-        <div style="font-size:36px;margin-bottom:12px">💬</div>
-        <div style="font-weight:700;margin-bottom:6px">Easy Ordering</div>
-        <div style="color:var(--muted);font-size:14px">Order via Facebook or Viber — fast replies guaranteed</div>
+    </section>
+
+    <!-- PROMOS -->
+    <div class="cat-section">
+      <div class="cat-section-header">
+        <div class="cat-section-title">🔥 Promos & Bundles</div>
+        <a href="shop.html?cat=promos" class="cat-section-link">See all →</a>
+      </div>
+      <div class="product-grid" id="home-promos"></div>
+    </div>
+
+    <!-- WHISKY -->
+    <div class="cat-section">
+      <div class="cat-section-header">
+        <div class="cat-section-title">🥃 Popular Whiskies</div>
+        <a href="shop.html?cat=whisky" class="cat-section-link">See all →</a>
+      </div>
+      <div class="product-grid" id="home-whisky"></div>
+    </div>
+
+    <!-- WHY SIP TWICE -->
+    <div class="cat-section" style="background:var(--surface);border-top:1px solid var(--border)">
+      <div class="cat-section-header">
+        <div class="cat-section-title">Why Sip Twice?</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px">
+        <div>
+          <div style="font-size:28px;margin-bottom:10px">🥃</div>
+          <div style="font-weight:600;margin-bottom:6px;font-family:'Playfair Display',serif">200+ Products</div>
+          <div style="color:var(--muted);font-size:13px;line-height:1.6">Whisky, gin, brandy, wine, tequila, cognac and more — all in one shop.</div>
+        </div>
+        <div>
+          <div style="font-size:28px;margin-bottom:10px">🚚</div>
+          <div style="font-weight:600;margin-bottom:6px;font-family:'Playfair Display',serif">Metro Manila Delivery</div>
+          <div style="color:var(--muted);font-size:13px;line-height:1.6">Free delivery on orders ₱3,000+. Starts at ₱150 for smaller orders.</div>
+        </div>
+        <div>
+          <div style="font-size:28px;margin-bottom:10px">💬</div>
+          <div style="font-weight:600;margin-bottom:6px;font-family:'Playfair Display',serif">Easy Ordering</div>
+          <div style="color:var(--muted);font-size:13px;line-height:1.6">Add items to your inquiry, then send us one message on Facebook or Viber.</div>
+        </div>
+        <div>
+          <div style="font-size:28px;margin-bottom:10px">✅</div>
+          <div style="font-weight:600;margin-bottom:6px;font-family:'Playfair Display',serif">Trusted Shop</div>
+          <div style="color:var(--muted);font-size:13px;line-height:1.6">Hundreds of happy customers. Authentic bottles guaranteed.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DELIVERY INFO -->
+    <div class="delivery-strip">
+      <div>🚚 <span>Free delivery</span> on orders ₱3,000+ across Metro Manila</div>
+      <div>💳 <span>GCash · PayMaya · GotymE · Bank Transfer · COD</span></div>
+      <div>📞 <span>09560847104</span> · Mandaluyong City</div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-brand">
+        <div class="logo-wordmark">Sip Twice</div>
+        <p style="margin-top:10px">Premium liquor shop in Mandaluyong City, Metro Manila. Delivering fine spirits across Metro Manila.</p>
+      </div>
+      <div class="footer-links-col">
+        <h4>Quick Links</h4>
+        <a href="shop.html?cat=promos">Promos & Bundles</a>
+        <a href="shop.html?cat=whisky">Whisky</a>
+        <a href="shop.html?cat=gin">Gin</a>
+        <a href="shop.html?cat=wine">Wine</a>
+        <a href="https://www.facebook.com/profile.php?id=461074500421635" target="_blank">Facebook Page</a>
+        <a href="https://invite.viber.com/?g2=AQBDzlc3gQVeW1OmRwA6sR3mK1F%2FHCGGMUUf%2B86vvUArJSRankadAEcp07j%2BQKpZ" target="_blank">Viber Community</a>
+      </div>
+    </footer>
+    <div class="footer-bottom">
+      <span>© 2026 Sip Twice. All rights reserved.</span>
+      <span>18+ only · Drink Responsibly</span>
+    </div>
+
+  </div><!-- /main -->
+</div><!-- /layout -->
+
+<!-- INQUIRY MODAL -->
+<div class="modal-overlay" id="inquiry-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Your Inquiry</div>
+      <button class="modal-close" onclick="closeInquiry()">×</button>
+    </div>
+    <div class="modal-body" id="inquiry-body"></div>
+    <div class="modal-footer">
+      <div class="modal-footer-note">
+        We'll confirm availability, compute the total, and arrange delivery once you send your inquiry.
+        <br/>Free delivery on orders ₱3,000+.
+      </div>
+      <div class="order-btns">
+        <a class="btn-fb" href="#" onclick="sendInquiry('fb');return false;">📘 Send via Facebook</a>
+        <a class="btn-viber" href="#" onclick="sendInquiry('viber');return false;">💬 Send via Viber</a>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ORDER CTA -->
-<div class="section" style="text-align:center">
-  <div class="section-title">Ready to <span>Order?</span></div>
-  <p style="color:var(--muted);margin-bottom:28px;font-size:15px">Message us on Facebook or Viber and we'll take care of the rest.</p>
-  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-    <a href="https://m.me/461074500421635" target="_blank"
-       style="background:var(--fb);color:#fff;padding:14px 32px;border-radius:4px;font-weight:800;font-size:15px">
-      📘 Order on Facebook
-    </a>
-    <a href="viber://chat?number=%2B639560847104"
-       style="background:var(--viber);color:#fff;padding:14px 32px;border-radius:4px;font-weight:800;font-size:15px">
-      💬 Order on Viber
-    </a>
-  </div>
-  <p style="color:var(--muted);margin-top:16px;font-size:13px">
-    Or call/text: <strong style="color:var(--white)">09560847104</strong>
-  </p>
-</div>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="footer-logo">SIP TWICE</div>
-  <div class="footer-tagline">Premium Liquor Shop · Mandaluyong City, Metro Manila</div>
-  <div class="footer-links">
-    <a href="shop.html">Shop</a>
-    <a href="shop.html?cat=promos">Promos</a>
-    <a href="https://www.facebook.com/profile.php?id=461074500421635" target="_blank">Facebook</a>
-    <a href="https://invite.viber.com/?g2=AQBDzlc3gQVeW1OmRwA6sR3mK1F%2FHCGGMUUf%2B86vvUArJSRankadAEcp07j%2BQKpZ" target="_blank">Viber Community</a>
-  </div>
-  <div class="footer-copy">© 2026 Sip Twice. 18+ only. Drink responsibly.</div>
-</footer>
-
 <script src="js/products.js"></script>
+<script src="js/app.js"></script>
 <script>
-  const POPULAR_WHISKY = ["Glenfiddich 12 700ml","Macallan 12 Double Cask 700ml","Chivas 18","Dalmore 12","Jura 12 Sherry Cask","Monkey Shoulder","Jameson Whisky 1L","Jim Beam 1L"];
-
-  function pctOff(srp, price) {
-    const s = parseFloat((srp||'').replace(/[₱,]/g,''));
-    const p = parseFloat((price||'').replace(/[₱,]/g,''));
-    if (!s||!p||s<=p) return 0;
-    return Math.round((s-p)/s*100);
-  }
-
-  function orderMsg(name) {
-    return encodeURIComponent(`Hi! I want to order: ${name}`);
-  }
-
-  function renderCard(p) {
-    const pct = pctOff(p.srp, p.price);
-    return `
-    <div class="product-card">
-      <div class="card-img">${getCategoryEmoji(p.category||'whisky')}</div>
-      <div class="card-body">
-        <div class="card-name">${p.name}</div>
-        <div class="card-desc">${p.details||p.promo||''}</div>
-        ${pct ? `<div class="card-save">SAVE ${pct}%</div>` : ''}
-        ${p.srp ? `<div class="card-srp">SRP ${p.srp}</div>` : ''}
-        <div class="card-price">${p.price}</div>
-        ${p.promo ? `<div class="card-promo">🎉 ${p.promo}</div>` : ''}
-        <div class="card-btns">
-          <a class="btn-fb" href="https://m.me/461074500421635?ref=${orderMsg(p.name)}" target="_blank">📘 Facebook</a>
-          <a class="btn-viber" href="viber://chat?number=%2B639560847104&text=${orderMsg(p.name)}">💬 Viber</a>
-        </div>
-      </div>
-    </div>`;
-  }
-
-  function getCategoryEmoji(cat) {
-    const map = {promos:'🔥',whisky:'🥃',gin:'🌿',vodka:'🫧',brandy:'🍂',wine:'🍷',tequila:'🌵',cognac:'✨',rum:'🏝️',liqueur:'🍬',soju:'🇰🇷',beer:'🍺'};
-    return map[cat]||'🥃';
-  }
-
-  // Render promos (first 8)
-  const promosGrid = document.getElementById('promos-grid');
-  PRODUCTS.promos.slice(0,8).forEach(p => {
-    p.category = 'promos';
-    promosGrid.innerHTML += renderCard(p);
+  // Fill sidebar counts
+  Object.keys(PRODUCTS).forEach(cat => {
+    const el = document.getElementById(`cnt-${cat}`);
+    if (el) el.textContent = PRODUCTS[cat].length;
   });
 
-  // Render category tiles
-  const catGrid = document.getElementById('cat-grid');
-  Object.entries(CATEGORY_LABELS).forEach(([key, label]) => {
-    const count = (PRODUCTS[key]||[]).length;
-    catGrid.innerHTML += `
-      <a href="shop.html?cat=${key}" style="
-        background:var(--card);border:1px solid var(--border);border-radius:8px;
-        padding:20px 24px;display:flex;align-items:center;gap:12px;
-        transition:border-color .2s;min-width:150px;
-        " onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
-        <span style="font-size:28px">${label.split(' ')[0]}</span>
-        <div>
-          <div style="font-weight:700;font-size:14px">${label.split(' ').slice(1).join(' ')}</div>
-          <div style="color:var(--muted);font-size:12px">${count} items</div>
-        </div>
-      </a>`;
+  // Render featured promos (first 6)
+  const promoGrid = document.getElementById('home-promos');
+  PRODUCTS.promos.slice(0,6).forEach(p => {
+    promoGrid.innerHTML += renderCard(p, 'promos');
   });
 
-  // Render popular whisky
-  const whiskGrid = document.getElementById('whisky-grid');
-  const popular = PRODUCTS.whisky.filter(p => POPULAR_WHISKY.includes(p.name));
-  popular.forEach(p => {
-    p.category = 'whisky';
-    whiskGrid.innerHTML += renderCard(p);
+  // Render popular whisky (hand-picked)
+  const picks = ["Glenfiddich 12 700ml","Macallan 12 Double Cask 700ml","Chivas 18","Dalmore 12","Jura 12 Sherry Cask","Monkey Shoulder","Jameson Whisky 1L","Jim Beam 1L"];
+  const whiskGrid = document.getElementById('home-whisky');
+  PRODUCTS.whisky.filter(p => picks.includes(p.name)).forEach(p => {
+    whiskGrid.innerHTML += renderCard(p, 'whisky');
+  });
+
+  // Global search redirect
+  document.getElementById('global-search').addEventListener('keydown', e => {
+    if (e.key === 'Enter' && e.target.value.trim()) {
+      window.location.href = `shop.html?q=${encodeURIComponent(e.target.value.trim())}`;
+    }
   });
 </script>
 </body>

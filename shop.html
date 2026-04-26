@@ -4,232 +4,364 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Shop — Sip Twice Premium Liquor</title>
-  <meta name="description" content="Browse 200+ premium spirits. Whisky, gin, brandy, wine, tequila and more. Metro Manila delivery."/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <meta name="description" content="Browse 200+ premium spirits. Whisky, gin, brandy, wine, tequila and more."/>
   <link rel="stylesheet" href="css/style.css"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥃</text></svg>"/>
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="nav">
-  <div class="nav-logo"><a href="index.html">SIP<span>TWICE</span></a></div>
-  <div class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="shop.html" class="active">Shop</a>
-    <a href="shop.html?cat=promos">Promos</a>
-  </div>
-  <div class="nav-contact">
-    <span>📍 Mandaluyong</span>
-    <a href="viber://chat?number=%2B639560847104">Order via Viber</a>
-  </div>
-</nav>
-
-<!-- PROMO STRIP -->
-<div class="promo-strip">
-  🚚 FREE delivery Metro Manila on orders ₱3,000+ &nbsp;|&nbsp; ₱150 min delivery fee below ₱3,000
-</div>
-
-<!-- SHOP LAYOUT -->
-<div class="shop-layout">
+<div class="layout">
 
   <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="sidebar-title">Categories</div>
-    <div id="cat-buttons"></div>
-    <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border)">
-      <div class="sidebar-title">Order Now</div>
-      <a href="https://m.me/461074500421635" target="_blank"
-         style="display:block;background:var(--fb);color:#fff;text-align:center;padding:10px;border-radius:4px;font-weight:700;font-size:13px;margin-bottom:8px">
-        📘 Facebook
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-logo">
+      <a href="index.html">
+        <div class="logo-wordmark">Sip Twice</div>
+        <div class="logo-sub">Premium Liquor · Mandaluyong</div>
       </a>
-      <a href="viber://chat?number=%2B639560847104"
-         style="display:block;background:var(--viber);color:#fff;text-align:center;padding:10px;border-radius:4px;font-weight:700;font-size:13px">
-        💬 Viber
+    </div>
+
+    <div class="sidebar-search">
+      <input type="text" placeholder="Search products..." id="search-input" autocomplete="off"/>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Browse</div>
+      <a href="index.html" class="cat-item">
+        <span>🏠</span> Home
       </a>
-      <div style="margin-top:12px;font-size:12px;color:var(--muted);line-height:1.5">
+      <button class="cat-item" id="btn-promos" onclick="selectCat('promos')">
+        <span>🔥</span> Promos & Bundles
+        <span class="count" id="cnt-promos"></span>
+      </button>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Categories</div>
+      <button class="cat-item" id="btn-whisky" onclick="selectCat('whisky')">
+        <span>🥃</span> Whisky
+        <span class="count" id="cnt-whisky"></span>
+      </button>
+      <div class="sub-items" id="whisky-subs" style="display:none"></div>
+      <button class="cat-item" id="btn-gin" onclick="selectCat('gin')">
+        <span>🌿</span> Gin
+        <span class="count" id="cnt-gin"></span>
+      </button>
+      <button class="cat-item" id="btn-vodka" onclick="selectCat('vodka')">
+        <span>🫧</span> Vodka
+        <span class="count" id="cnt-vodka"></span>
+      </button>
+      <button class="cat-item" id="btn-brandy" onclick="selectCat('brandy')">
+        <span>🍂</span> Brandy
+        <span class="count" id="cnt-brandy"></span>
+      </button>
+      <button class="cat-item" id="btn-wine" onclick="selectCat('wine')">
+        <span>🍷</span> Wine
+        <span class="count" id="cnt-wine"></span>
+      </button>
+      <button class="cat-item" id="btn-tequila" onclick="selectCat('tequila')">
+        <span>🌵</span> Tequila
+        <span class="count" id="cnt-tequila"></span>
+      </button>
+      <button class="cat-item" id="btn-cognac" onclick="selectCat('cognac')">
+        <span>✨</span> Cognac
+        <span class="count" id="cnt-cognac"></span>
+      </button>
+      <button class="cat-item" id="btn-rum" onclick="selectCat('rum')">
+        <span>🏝️</span> Rum
+        <span class="count" id="cnt-rum"></span>
+      </button>
+      <button class="cat-item" id="btn-liqueur" onclick="selectCat('liqueur')">
+        <span>🍬</span> Liqueur
+        <span class="count" id="cnt-liqueur"></span>
+      </button>
+      <button class="cat-item" id="btn-soju" onclick="selectCat('soju')">
+        <span>🇰🇷</span> Soju
+        <span class="count" id="cnt-soju"></span>
+      </button>
+      <button class="cat-item" id="btn-beer" onclick="selectCat('beer')">
+        <span>🍺</span> Beer
+        <span class="count" id="cnt-beer"></span>
+      </button>
+    </div>
+
+    <div style="padding:16px 20px;border-top:1px solid var(--border)">
+      <div class="sidebar-label">Order & Inquire</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:10px">
         📞 09560847104<br/>
         📍 Mandaluyong City<br/>
-        🚚 FREE delivery ₱3,000+
+        🚚 Free delivery ₱3,000+
       </div>
+      <a href="https://www.facebook.com/profile.php?id=461074500421635" target="_blank"
+         style="display:block;background:var(--surface2);border:1px solid var(--border);color:var(--muted);text-align:center;padding:8px;border-radius:4px;font-size:12px;margin-bottom:6px">
+        📘 Facebook Page
+      </a>
+      <a href="https://invite.viber.com/?g2=AQBDzlc3gQVeW1OmRwA6sR3mK1F%2FHCGGMUUf%2B86vvUArJSRankadAEcp07j%2BQKpZ" target="_blank"
+         style="display:block;background:var(--surface2);border:1px solid var(--border);color:var(--muted);text-align:center;padding:8px;border-radius:4px;font-size:12px">
+        💬 Join Viber Community
+      </a>
+    </div>
+
+    <div class="sidebar-inquiry">
+      <div style="font-size:11px;color:var(--muted);margin-bottom:10px">
+        <span data-inquiry-count>0 items</span> in your inquiry
+      </div>
+      <button class="inquiry-btn" onclick="openInquiry()">
+        Send Inquiry
+        <span class="inquiry-count" style="display:none">0</span>
+      </button>
     </div>
   </aside>
 
   <!-- MAIN -->
-  <main class="shop-main">
-    <div class="search-bar">
-      <input type="text" class="search-input" id="search" placeholder="Search products... (e.g. Glenfiddich, Brandy, Gin)"/>
+  <div class="main">
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+      <div class="topbar-title" id="page-title">Whisky</div>
+      <div class="topbar-right">
+        <span id="page-count"></span>
+      </div>
     </div>
 
-    <div id="sub-tabs" class="sub-tabs" style="display:none"></div>
-
-    <div class="results-count" id="results-count"></div>
-
-    <div class="product-grid" id="product-grid"></div>
-
-    <div class="empty" id="empty-state" style="display:none">
-      <div class="empty-icon">🔍</div>
-      <div>No products found</div>
-      <div style="font-size:13px;margin-top:8px">Try a different search or category</div>
+    <!-- SHOP HEADER -->
+    <div class="shop-header">
+      <div class="shop-title" id="shop-heading">Whisky</div>
+      <div class="shop-sub" id="shop-sub">Browse our full selection</div>
+      <div class="sub-tabs" id="sub-tabs" style="display:none"></div>
     </div>
-  </main>
+
+    <!-- GRID -->
+    <div class="shop-grid-wrap">
+      <div class="results-meta" id="results-meta"></div>
+      <div class="product-grid padded" id="product-grid"></div>
+      <div id="empty-state" style="display:none;text-align:center;padding:60px 20px;color:var(--muted)">
+        <div style="font-size:40px;margin-bottom:12px">🔍</div>
+        <div style="font-family:'Playfair Display',serif;font-size:20px;margin-bottom:8px">No products found</div>
+        <div style="font-size:13px">Try a different search or category</div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="delivery-strip">
+      <div>🚚 <span>Free delivery</span> on orders ₱3,000+ · Starts at ₱150 below that</div>
+      <div>💳 <span>GCash · PayMaya · GotymE · Bank Transfer · COD</span></div>
+    </div>
+    <footer class="footer">
+      <div class="footer-brand">
+        <div class="logo-wordmark">Sip Twice</div>
+        <p style="margin-top:10px">Premium liquor shop in Mandaluyong City. Delivering across Metro Manila.</p>
+      </div>
+      <div class="footer-links-col">
+        <h4>Quick Links</h4>
+        <a href="index.html">Home</a>
+        <a href="shop.html?cat=promos">Promos</a>
+        <a href="https://www.facebook.com/profile.php?id=461074500421635" target="_blank">Facebook</a>
+        <a href="https://invite.viber.com/?g2=AQBDzlc3gQVeW1OmRwA6sR3mK1F%2FHCGGMUUf%2B86vvUArJSRankadAEcp07j%2BQKpZ" target="_blank">Viber Community</a>
+      </div>
+    </footer>
+    <div class="footer-bottom">
+      <span>© 2026 Sip Twice. All rights reserved.</span>
+      <span>18+ only · Drink Responsibly</span>
+    </div>
+
+  </div>
 </div>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="footer-logo">SIP TWICE</div>
-  <div class="footer-tagline">Premium Liquor Shop · Mandaluyong City, Metro Manila</div>
-  <div class="footer-links">
-    <a href="index.html">Home</a>
-    <a href="shop.html?cat=promos">Promos</a>
-    <a href="https://www.facebook.com/profile.php?id=461074500421635" target="_blank">Facebook</a>
-    <a href="https://invite.viber.com/?g2=AQBDzlc3gQVeW1OmRwA6sR3mK1F%2FHCGGMUUf%2B86vvUArJSRankadAEcp07j%2BQKpZ" target="_blank">Viber Community</a>
+<!-- INQUIRY MODAL -->
+<div class="modal-overlay" id="inquiry-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Your Inquiry</div>
+      <button class="modal-close" onclick="closeInquiry()">×</button>
+    </div>
+    <div class="modal-body" id="inquiry-body"></div>
+    <div class="modal-footer">
+      <div class="modal-footer-note">
+        We'll confirm availability, compute your total, and arrange delivery.
+        Free delivery on orders ₱3,000+. Delivery starts at ₱150 below that.
+      </div>
+      <div class="order-btns">
+        <a class="btn-fb" href="#" onclick="sendInquiry('fb');return false;">📘 Send via Facebook</a>
+        <a class="btn-viber" href="#" onclick="sendInquiry('viber');return false;">💬 Send via Viber</a>
+      </div>
+    </div>
   </div>
-  <div class="footer-copy">© 2026 Sip Twice. 18+ only. Drink responsibly.</div>
-</footer>
+</div>
 
 <script src="js/products.js"></script>
+<script src="js/app.js"></script>
 <script>
   let currentCat = 'whisky';
   let currentSub = 'all';
-  let searchQuery = '';
 
-  const EMOJI = {promos:'🔥',whisky:'🥃',gin:'🌿',vodka:'🫧',brandy:'🍂',wine:'🍷',tequila:'🌵',cognac:'✨',rum:'🏝️',liqueur:'🍬',soju:'🇰🇷',beer:'🍺'};
+  const CAT_TITLES = {
+    promos:'Promos & Bundles', whisky:'Whisky', gin:'Gin', vodka:'Vodka',
+    brandy:'Brandy', wine:'Wine', tequila:'Tequila', cognac:'Cognac',
+    rum:'Rum', liqueur:'Liqueur', soju:'Soju', beer:'Beer'
+  };
+  const CAT_SUBS = {
+    promos:'Limited deals and bundle offers — order now while stocks last',
+    whisky:'Single Malt Scotch, Blended Scotch, Irish, Japanese, American & Bourbon',
+    gin:'Premium craft gins and local favourites',
+    vodka:'Imported and local vodka selection',
+    brandy:'Emperador, Alfonso, Fundador and more',
+    wine:'Red, white, rosé, sparkling and sangria',
+    tequila:'Blanco, reposado, añejo and mezcal',
+    cognac:'Hennessy, Martell, Rémy Martin and more',
+    rum:'Bacardi, Captain Morgan and more',
+    liqueur:'Baileys, Jägermeister, Cointreau and more',
+    soju:'Chingu, Vino Soju and Korean-style spirits',
+    beer:'Budweiser and party packs',
+  };
 
-  function pctOff(srp, price) {
-    const s = parseFloat((srp||'').replace(/[₱,]/g,''));
-    const p = parseFloat((price||'').replace(/[₱,]/g,''));
-    if (!s||!p||s<=p) return 0;
-    return Math.round((s-p)/s*100);
+  // Fill sidebar counts
+  Object.keys(PRODUCTS).forEach(cat => {
+    const el = document.getElementById(`cnt-${cat}`);
+    if (el) el.textContent = PRODUCTS[cat].length;
+  });
+
+  // Build whisky sub-items
+  const whiskySubs = document.getElementById('whisky-subs');
+  WHISKY_SUBCATEGORIES.forEach(sub => {
+    whiskySubs.innerHTML += `
+      <button class="sub-item" id="sub-${sub.replace(/\s+/g,'-')}"
+        onclick="selectSub('${sub}')">${sub}</button>`;
+  });
+
+  function selectCat(cat) {
+    currentCat = cat;
+    currentSub = 'all';
+
+    // Update sidebar active state
+    document.querySelectorAll('.cat-item').forEach(b => b.classList.remove('active'));
+    const btn = document.getElementById(`btn-${cat}`);
+    if (btn) btn.classList.add('active');
+
+    // Show/hide whisky sub-items
+    whiskySubs.style.display = (cat === 'whisky') ? 'block' : 'none';
+
+    // Reset sub-item active states
+    document.querySelectorAll('.sub-item').forEach(b => b.classList.remove('active'));
+
+    // Update header
+    document.getElementById('page-title').textContent = CAT_TITLES[cat]||cat;
+    document.getElementById('shop-heading').textContent = CAT_TITLES[cat]||cat;
+    document.getElementById('shop-sub').textContent = CAT_SUBS[cat]||'';
+
+    // Sub tabs (whisky only)
+    const tabsEl = document.getElementById('sub-tabs');
+    if (cat === 'whisky') {
+      tabsEl.style.display = 'flex';
+      buildSubTabs();
+    } else {
+      tabsEl.style.display = 'none';
+    }
+
+    renderProducts();
+    window.history.replaceState(null,'',`?cat=${cat}`);
+
+    // Close sidebar on mobile
+    if (window.innerWidth < 900) toggleSidebar();
   }
 
-  function orderMsg(name) {
-    return encodeURIComponent(`Hi! I want to order: ${name}`);
-  }
-
-  function renderCard(p, cat) {
-    const pct = pctOff(p.srp, p.price);
-    return `
-    <div class="product-card">
-      <div class="card-img">${EMOJI[cat]||'🥃'}</div>
-      <div class="card-body">
-        <div class="card-name">${p.name}</div>
-        <div class="card-desc">${p.details||p.promo||''}</div>
-        ${pct ? `<div class="card-save">SAVE ${pct}%</div>` : ''}
-        ${p.srp ? `<div class="card-srp">SRP ${p.srp}</div>` : ''}
-        <div class="card-price">${p.price}</div>
-        ${p.promo ? `<div class="card-promo">🎉 ${p.promo}</div>` : ''}
-        <div class="card-btns">
-          <a class="btn-fb" href="https://m.me/461074500421635?ref=${orderMsg(p.name)}" target="_blank">📘 Facebook</a>
-          <a class="btn-viber" href="viber://chat?number=%2B639560847104&text=${orderMsg(p.name)}">💬 Viber</a>
-        </div>
-      </div>
-    </div>`;
-  }
-
-  function buildCatButtons() {
-    const el = document.getElementById('cat-buttons');
-    el.innerHTML = '';
-    Object.entries(CATEGORY_LABELS).forEach(([key, label]) => {
-      const btn = document.createElement('button');
-      btn.className = 'cat-btn' + (key === currentCat ? ' active' : '');
-      btn.textContent = label;
-      btn.onclick = () => selectCat(key);
-      el.appendChild(btn);
-    });
+  function selectSub(sub) {
+    currentSub = sub;
+    document.querySelectorAll('.sub-item').forEach(b => b.classList.remove('active'));
+    const el = document.getElementById(`sub-${sub.replace(/\s+/g,'-')}`);
+    if (el) el.classList.add('active');
+    buildSubTabs();
+    renderProducts();
   }
 
   function buildSubTabs() {
     const el = document.getElementById('sub-tabs');
-    if (currentCat !== 'whisky') { el.style.display = 'none'; return; }
-    el.style.display = 'flex';
-    el.innerHTML = '';
-    const subs = ['all', ...WHISKY_SUBCATEGORIES];
-    subs.forEach(s => {
-      const btn = document.createElement('button');
-      btn.className = 'sub-tab' + (s === currentSub ? ' active' : '');
-      btn.textContent = s === 'all' ? 'All Whisky' : s;
-      btn.onclick = () => { currentSub = s; buildSubTabs(); renderProducts(); };
-      el.appendChild(btn);
-    });
+    const all = ['all', ...WHISKY_SUBCATEGORIES];
+    el.innerHTML = all.map(s => `
+      <button class="sub-tab ${s===currentSub?'active':''}"
+        onclick="selectSub('${s}')">${s==='all'?'All Whisky':s}</button>`).join('');
   }
 
   function renderProducts() {
     const grid = document.getElementById('product-grid');
     const empty = document.getElementById('empty-state');
-    const count = document.getElementById('results-count');
+    const meta = document.getElementById('results-meta');
+    const q = document.getElementById('search-input').value.trim().toLowerCase();
+
     grid.innerHTML = '';
 
-    let items = (PRODUCTS[currentCat]||[]).map(p => ({...p, _cat: currentCat}));
+    let items = PRODUCTS[currentCat] || [];
 
     if (currentCat === 'whisky' && currentSub !== 'all') {
       items = items.filter(p => p.subcategory === currentSub);
     }
 
-    if (searchQuery) {
-      const q = searchQuery.toLowerCase();
+    if (q) {
       items = items.filter(p =>
         p.name.toLowerCase().includes(q) ||
         (p.details||'').toLowerCase().includes(q) ||
-        (p.subcategory||'').toLowerCase().includes(q)
+        (p.subcategory||'').toLowerCase().includes(q) ||
+        (p.promo||'').toLowerCase().includes(q)
       );
     }
 
-    if (items.length === 0) {
+    document.getElementById('page-count').textContent = `${items.length} items`;
+    meta.textContent = q ? `${items.length} result${items.length!==1?'s':''} for "${q}"` : `${items.length} product${items.length!==1?'s':''}`;
+
+    if (!items.length) {
       empty.style.display = 'block';
-      count.textContent = '';
     } else {
       empty.style.display = 'none';
-      count.textContent = `${items.length} product${items.length!==1?'s':''}`;
       items.forEach(p => { grid.innerHTML += renderCard(p, currentCat); });
     }
   }
 
-  function selectCat(cat) {
-    currentCat = cat;
-    currentSub = 'all';
-    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.cat-btn').forEach(b => {
-      if (b.textContent === CATEGORY_LABELS[cat]) b.classList.add('active');
+  // Global search across ALL categories
+  function doGlobalSearch(q) {
+    if (!q) { renderProducts(); return; }
+    const grid = document.getElementById('product-grid');
+    const meta = document.getElementById('results-meta');
+    const empty = document.getElementById('empty-state');
+    const ql = q.toLowerCase();
+    grid.innerHTML = '';
+    let total = 0;
+    Object.entries(PRODUCTS).forEach(([cat, items]) => {
+      items.forEach(p => {
+        if (p.name.toLowerCase().includes(ql) || (p.details||'').toLowerCase().includes(ql)) {
+          grid.innerHTML += renderCard(p, cat);
+          total++;
+        }
+      });
     });
-    buildSubTabs();
-    renderProducts();
-    window.history.replaceState(null, '', `?cat=${cat}`);
+    meta.textContent = `${total} result${total!==1?'s':''} for "${q}"`;
+    empty.style.display = total === 0 ? 'block' : 'none';
   }
 
-  // Read URL param
-  const urlCat = new URLSearchParams(window.location.search).get('cat');
-  if (urlCat && PRODUCTS[urlCat]) currentCat = urlCat;
-
-  buildCatButtons();
-  buildSubTabs();
-  renderProducts();
-
-  // Search
-  document.getElementById('search').addEventListener('input', e => {
-    searchQuery = e.target.value.trim();
-    // If searching, show all categories flat
-    if (searchQuery) {
-      const grid = document.getElementById('product-grid');
-      const empty = document.getElementById('empty-state');
-      const count = document.getElementById('results-count');
-      const q = searchQuery.toLowerCase();
-      grid.innerHTML = '';
-      let total = 0;
-      Object.entries(PRODUCTS).forEach(([cat, items]) => {
-        items.forEach(p => {
-          if (p.name.toLowerCase().includes(q) || (p.details||'').toLowerCase().includes(q)) {
-            grid.innerHTML += renderCard(p, cat);
-            total++;
-          }
-        });
-      });
-      count.textContent = total ? `${total} result${total!==1?'s':''} for "${searchQuery}"` : '';
-      empty.style.display = total === 0 ? 'block' : 'none';
-    } else {
-      renderProducts();
-    }
+  // Search input
+  document.getElementById('search-input').addEventListener('input', e => {
+    const q = e.target.value.trim();
+    if (q.length > 1) { doGlobalSearch(q); }
+    else { renderProducts(); }
   });
+
+  // Read URL params
+  const params = new URLSearchParams(window.location.search);
+  const urlCat = params.get('cat');
+  const urlQ = params.get('q');
+
+  if (urlCat && PRODUCTS[urlCat]) {
+    currentCat = urlCat;
+  }
+
+  selectCat(currentCat);
+
+  if (urlQ) {
+    document.getElementById('search-input').value = urlQ;
+    doGlobalSearch(urlQ);
+  }
 </script>
 </body>
 </html>
